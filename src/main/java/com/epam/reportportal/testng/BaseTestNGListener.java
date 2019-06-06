@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * methods, suites, test classes.
  * Can be extended by providing {@link ITestNGService} implementation
  */
-public class BaseTestNGListener implements IExecutionListener, ISuiteListener, IResultListener2 {
+public class BaseTestNGListener implements IExecutionListener, ISuiteListener, IResultListener2, IClassListener {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(BaseTestNGListener.class);
 
@@ -124,5 +124,15 @@ public class BaseTestNGListener implements IExecutionListener, ISuiteListener, I
 	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
 		testNGService.finishTestMethod(Statuses.FAILED, result);
+	}
+
+	@Override
+	public void onBeforeClass(ITestClass testClass) {
+		System.out.println("before class");
+	}
+
+	@Override
+	public void onAfterClass(ITestClass testClass) {
+		System.out.println("after class");
 	}
 }
